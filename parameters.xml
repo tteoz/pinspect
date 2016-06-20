@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<opencv_storage>
+
+
+<!-- calibration pattern -->
+<PatternSize>20 15</PatternSize>
+<PatternEdgeSize>0.004</PatternEdgeSize>
+
+
+<!-- cv::findCirclesGrid options -->
+<thresholdStep>10</thresholdStep>
+<minThreshold>50</minThreshold>
+<maxThreshold>220</maxThreshold>
+<filterByArea>1</filterByArea>
+<minArea>25</minArea>
+<maxArea>5000</maxArea>
+<filterByCircularity>1</filterByCircularity>
+<minCircularity>0.800000012</minCircularity>
+<maxCircularity>3.40282347e+38</maxCircularity>
+<filterByConvexity>1</filterByConvexity>
+<minConvexity>0.949999988</minConvexity>
+<maxConvexity>3.40282347e+38</maxConvexity>
+
+
+<!-- rectification maps computation parameters -->
+<RectifyAlpha>-1</RectifyAlpha>
+
+
+<!-- corner detection parameters -->
+<qualityLevel>0.01</qualityLevel>
+<maxCorners>83</maxCorners>
+<minDistance>40</minDistance>
+<blockSize>3</blockSize>
+<useHarrisDetector>0</useHarrisDetector>
+<kCornerParams>0.04</kCornerParams>
+<CornerDetectVisualize>0</CornerDetectVisualize>
+
+<!-- grid fitting parameters -->
+<GridFittingSize>16 2</GridFittingSize>
+<GridFittingVisualize>0</GridFittingVisualize>
+
+<!-- refinement parameters -->
+<RefineThreshold>200</RefineThreshold>
+<RefineN>11</RefineN>
+<RefineMinEdgeSize>10</RefineMinEdgeSize>
+<RefineMinArea>100</RefineMinArea>
+<RefineMaxArea>400</RefineMaxArea>
+<RefineDog1Ker>0</RefineDog1Ker>
+<RefineDog2Ker>10</RefineDog2Ker>
+<RefineWindowSize>30 30</RefineWindowSize>
+<RefineTentatives>20</RefineTentatives>
+<RefineDebug>0</RefineDebug>
+<RefinementVisualize>0</RefinementVisualize>
+
+
+<!-- visualization parameters -->
+<DisplaySize>1920 1080</DisplaySize>
+<GridFittingColor>100</GridFittingColor>
+<TriangulationVisualize>0</TriangulationVisualize>
+<RegistrationVisualize>0</RegistrationVisualize>
+
+
+</opencv_storage>

@@ -1,0 +1,172 @@
+#############################
+
+        ELABORAZIONE DI DATI TRIDIMENSIONALI
+              COMPETITION LOCCIONI
+             
+                     DEI
+                    
+             UNIVERSITY OF PADOVA
+
+
+Alessandro Beltramin
+Matteo Sartori
+#############################
+
+
+
+INTRODUCTION
+#############################
+
+This is a C++ project for an inspection system developed for the course of
+Computer Vision in occasion of a competition by Loccioni.
+It's written in -std=c++11 and was designed as a prototype to conduct experiments
+about the competition goal (inspection and quality assurance of connector 
+components). This is not a production software.
+
+
+
+DIRECTORY STRUCTURE
+#############################
+
+doc/          doxygen generated documentation for the source code in html
+src/
+src/include/  both contains sources for the inspection system   
+results/      keep intermediate results for the pipeline of algorithms (see USAGE)
+
+CMakeLists.txt  cmake configuration files
+Doxyfile        doxigen configuration files
+parameters.xml  contains configuration parameters for all algorithms in the pipeline,
+                it's also possible to set up behaviour for visualization and debugging
+                (see USAGE)
+README          this foo
+
+
+VERY IMPORTANT
+File src/Circlesgrid.cpp src/include/Circlesgrid.hpp are from opencv-3.0.0 source
+code. We do this because symbols in that sources are not exposed to the external
+api.
+They were renamed from 'circlesgrid' to 'Circlesgrid'.
+
+
+                
+BUILDING
+#############################
+
+DEPENDENCIES:
+opencv-3.0.0
+pcl-1.7.2
+boost-1.57.0(
+  any
+  fusion
+  program_options
+  filesystem
+  system
+)
+
+COMPILER:
+Since we used some features of standard C++11 it is important to have a
+compliant compiler (that support -std=c++11 flag).
+We tested with gcc-4.9.2 and clang-3.6.0, on Arch Linux platform.
+
+BUILD SYSTEM:
+The build system uses cmake-3.1.3
+
+If all dependecies are satisfied the build should be as simple as follow:
+
+$ mkdir build
+$ cd build
+$ cmake ..    (which build in Release mode, so alternative is to add
+               -DCMAKE_BUILD_TYPE=Debug)
+$ make
+
+This generates an executable named 'pinspect'.
+
+
+
+
+USAGE
+#############################
+
+Usage: pinspect [OPTIONS] FROM-CMD [TO-CMD]
+
+Primary options:
+  -h [ --help ]            produce help message
+  -p [ --print-params ]    print set parameters
+  --parameters arg         set parameters file
+  --results arg            set results directory
+  --left-format arg        left images form of the dataset
+  --right-format arg       right images form of the dataset
+  -l [ --left-image ] arg  left image to inspect
+  -r [ --right-image ] arg right image to inspect
+  --commands arg           from command to command
+
+Commands available:
+   calib	perform calibration
+   rectmap	compute rectification maps
+   rectify	rectify input images
+   cornerdet	corner detection
+   gridfit	fitting the grid model
+   refine	pin position refinement
+   triang	triangulate and project in 3D
+   regist	model registration, compute errors
+
+
+It's important to note some details.
+First look at the commands available: they permit to control the sequences of
+processing stages the program is going to perform. One can specify from what 
+command to what other the processing is going to pass through. As an example:
+
+$ ./pinspect cornerdet gridfit
+
+runs corner detection algorithm and after that the fitting of the model grid.
+If one specify only one command it's then intended to conduct only that stage.
+Special command name: 'start' and 'end' could be used as alias of the first and
+for the last command respectively.
+
+Important options to note are that necessary for some stages:
+--left-format and --right-format are used to specify the dataset format for the
+calibration stage. So as an example one could write something like this:
+
+$ ./pinspect --left-format /home/matti/code/DatasetLoccioni/Stereo\ example\ 1/Calibration\ images/Con1_Left#.png --right-format /home/matti/code/DatasetLoccioni/Stereo\ example\ 1/Calibration\ images/Con1_Right#.png --parameters=../parameters.xml calib 
+
+to conduct a calibration (NOTE the escape sequece '\ ' for the spaces char in Loccioni dataset
+directories, this is important for the way we parse the command line).
+Importanto to note is that one can specify the generic format of the dataset, 
+with the wildchar '#' that represent the ID number of some image. The system
+is capable to match that information and check for each respective image.
+
+Options -l [--left-image], -r [--right-image] are necessary for perform inspection
+on a stereo pair, in particular are mandatory options for command 'rectify'.
+
+
+The other two remaining --parameters and --results are used to configure two 
+important files.
+
+PARAMETERS:
+This file is used by the system two configure algorithm parameters in
+each processing stage. (Since it uses cv::FileStorage it must be compliant
+with that format, thus in .xml and .yaml). There is an example in root package
+directory 'parameters.xml'.
+
+RESULTS:
+This directory is where the system put the results for every processing stage.
+This way is possible to execute commands that depends on output previously
+produces by another command. (We handle serialization and reading of data)
+
+So, an example is to perform calibration by 'calib', then look at the output 
+produced, maybe repeating many times adjusting parameters in the 'parameters.xml' 
+file. Finally one can concentrate on the inspection system where each commands can
+be executed in the same way.
+For example we can run:
+
+$ ./pinspect -l <left-image> -r <right-image> rectify end
+
+to conduct the entire inspection.
+There is already a directory in root package 'results/' that we provide to let the user
+to not calibrate the entire system again.
+
+
+IMPORTANT TO NOTE:
+In file parameters.xml one can also control the visualization output for a specific
+stage.
+
