@@ -142,7 +142,7 @@ private:
 	bool futureAvailable;
 
 	/**
-	 * The actual value we are interested on.
+	 * The actual value we are interested in.
 	 */
 	Type value;
 };
