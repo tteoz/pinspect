@@ -38,7 +38,7 @@ typedef std::vector<cv::Point2f> CornerList;
 
 
 /**
- * Represents a pair of images passing through pipeline stages.
+ * Represent a pair of images passing through pipeline stages.
  */
 struct ImagePair {
 	cv::Mat left;
@@ -90,7 +90,7 @@ struct Corners {
 };
 
 /**
- * Computed point clouds. No needs to serialize.
+ * Computed point clouds. No need to serialize.
  */
 struct PointCloudPtr {
 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr pcloud;
@@ -110,7 +110,7 @@ ImagePair buildImagePair(std::string left, std::string right);
 
 
 /**
- * Pipeline stage that rectificate input images.
+ * Pipeline stage that rectificates input images.
  */
 class Rectification : public ProcessingStage<ImagePair, ImagePair,
 		CameraParameters, CameraParameters, RectificationParameters> {
@@ -127,7 +127,7 @@ private:
 
 
 /**
- * This stage run cv::goodFeaturesToTrack on images.
+ * This stage runs cv::goodFeaturesToTrack on images.
  */
 class CornerDetection : public ProcessingStage<Corners, ImagePair> {
 
@@ -142,8 +142,8 @@ private:
 
 
 /**
- * This stage try to a grid model on the previous detected corners. Two
- * purpose: remove outlier and sort relevant points.
+ * This stage tries to fit a grid model on the previous detected corners. Two
+ * purposes: to remove outlier and to sort relevant points.
  *
  * IMPORTANT
  * It uses @see CirclesGridFinder from opencv source code.

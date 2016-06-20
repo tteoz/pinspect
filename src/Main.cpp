@@ -41,19 +41,19 @@ static Pipeline pipeline;
 static CalibrationSet dataset;
 
 /**
- * Map of connectors object created on inputs to pass to various ProcessingStages.
+ * Map of connector objects created on input to pass to various ProcessingStages.
  */
 static std::vector<boost::any> inputConnectorList;
 
 /**
- * Serves to bind a name to each ProcessingStage objects.
+ * Bind a name to each ProcessingStage objects.
  * It's used to set up links during pipeline constructions.
  */
 static std::map<std::string, ProcessingInterface*> stageMap;
 
 
 /**
- * Allocates processing stages associated with names.
+ * Allocate processing stages associated with names.
  */
 static void initializeStageMap() {
 	stageMap.insert(
@@ -251,7 +251,7 @@ typedef std::pair<std::string, commandHandler> CommandPair;
 typedef std::vector<CommandPair> CommandList;
 
 /**
- * Represents commands with a description of what the do.
+ * Represent commands with a description of which operation to perform.
  */
 static std::vector<std::pair<std::string,std::string>> commandDescription = {
 		{"calib", "perform calibration"},
@@ -265,7 +265,7 @@ static std::vector<std::pair<std::string,std::string>> commandDescription = {
 };
 
 /**
- * This associate to each command name the static function to call to
+ * Associate to each command name the static function to call to
  * create the ProcessingStage object specific for that command.
  */
 static CommandList commandList = {
@@ -286,7 +286,7 @@ static void printCommands() {
 
 
 /**
- * Decide how to build the pipeline parsing command line arguments.
+ * Decide how to build the pipeline while parsing command line arguments.
  * @param from decide where to start executing stage
  * @param to what stage to stop at.
  *
@@ -306,7 +306,7 @@ static void parseCommands(std::string from, std::string to, po::variables_map vm
 	if(to == "end")
 		toIt = commandList.end() - 1;
 
-	//bound check
+	//boundary check
 	if(fromIt == commandList.end())
 		throw std::runtime_error("Invalid command '" + from + "'");
 
@@ -316,7 +316,7 @@ static void parseCommands(std::string from, std::string to, po::variables_map vm
 	if(toIt == commandList.end() && to.front() != '-')
 		throw std::runtime_error("Invalid command '" + to + "'");
 	else if(toIt == commandList.end())
-		//we assume the user want only one stage
+		//we assume the user wants only one stage
 		toIt = fromIt;
 
 
@@ -340,7 +340,7 @@ int main(int argc, char *argv[]) {
 	std::string fromCommand = "";
 	std::string toCommand = "";
 
-	//boost object for describe the program options.
+	//boost object for describe program options.
 	po::options_description desc(optionDescription);
 	desc.add_options()
 	    ("help,h", "produce help message")
@@ -356,7 +356,7 @@ int main(int argc, char *argv[]) {
 	po::positional_options_description p;
 	p.add("commands", 2);
 
-	//this actually parse argv
+	//this actually parses argv
 	po::variables_map vm;
 	po::store(po::command_line_parser(argc, argv).positional(p).options(desc).run(),vm);
 	po::notify(vm);
@@ -401,7 +401,7 @@ int main(int argc, char *argv[]) {
 		std::exit(1);
 	}
 
-	//this check for missing inputs
+	//this checks for missing inputs
 	pipeline.checkStagesInput();
 
 	auto start = std::chrono::steady_clock::now();

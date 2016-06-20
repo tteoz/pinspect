@@ -37,21 +37,21 @@ typedef std::vector<std::string> FilenameList;
 
 
 /**
- * To signal missed consistency among various images.
+ * Signal missed consistency among various images.
  */
 struct ConsistencyError : std::runtime_error {
 	ConsistencyError(std::string s) : std::runtime_error(s) {}
 };
 
 /**
- * To signal missed consistency among various images.
+ * Signal missed consistency among various images.
  */
 struct InvalidImageError : std::runtime_error {
 	InvalidImageError(std::string s) : std::runtime_error(s) {}
 };
 
 /**
- * To signal problem with file access.
+ * Signal problems with file access.
  */
 struct FileAccessError : std::runtime_error {
 	FileAccessError(std::string s) : std::runtime_error(s) {}
@@ -60,7 +60,7 @@ struct FileAccessError : std::runtime_error {
 
 /**
  * Represent the set of images used for the calibration of a stereo rig.
- * It perform consistency check among images, that's all images must be of the
+ * It performs consistency check among images, that's all images must be of the
  * same type and size.
  */
 class CalibrationSet {
@@ -132,7 +132,7 @@ public:
 private:
 
 	/**
-	 * Internal routine for bounding check.
+	 * Internal routine for boundary check.
 	 */
 	void checkAccessRange(size_t n) const;
 
@@ -157,7 +157,7 @@ private:
 	cv::Size sizeOfImages;
 
 	/**
-	 * State to signal that checking was not already performed.
+	 * State for signaling that checking was already performed.
 	 */
 	bool checked;
 };

@@ -41,7 +41,7 @@ public:
 	void execute();
 
 	/**
-	 * This serves to check if the pipeline it's built consistent, so every
+	 * This serves to check if the pipeline it's built consistently. Every
 	 * stage must have the input wired in the right way.
 	 */
 	void checkStagesInput();

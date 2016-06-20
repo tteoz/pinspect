@@ -207,7 +207,7 @@ static double angle(cv::Point pt1, cv::Point pt2, cv::Point pt0 ) {
 }
 
 /**
- * Returns sequence of squares detected on the image. The sequence is stored
+ * Return sequence of squares detected on the image. The sequence is stored
  * in the specified memory storage.
  */
 static void findSquares(const cv::Mat& image,
@@ -441,9 +441,9 @@ static void refine(const CornerList &inPoints, const cv::Mat &image,
 		} else {
 
 			// Pin center not found
-//			throw new std::exception;
+      // throw new std::exception;
 
-			//then keep original point
+			// then keep original point
 			tempRefinedPoints.push_back(p);
 
 		}
@@ -484,7 +484,7 @@ Corners Refinement::process(Corners input, ImagePair images) {
 
 
 /**
- * To compactly create a pcl::Point.
+ * Create a pcl::Point.
  */
 static pcl::PointXYZRGB make_point(float x, float y, float z, cv::Vec3i col) {
 	pcl::PointXYZRGB point;
@@ -537,11 +537,11 @@ PointCloudPtr Triangulation::process(Corners corners, RectificationParameters re
 
 
 // Dataset specific constants
-float smallSmallDist	= 0.002576f; // 0.0025f
+float smallSmallDist	= 0.002576f;
 
 /**
  * This function serves to represent the current type of grid in the dataset.
- * Number of pin and location. It's expected for extending the inspection system
+ * Number of pins and locations. It's expected for extending the inspection system
  * to specialize this representation.
  */
 static cv::Point2f mappingIndexToPattern(int j, int i) {

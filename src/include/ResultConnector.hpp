@@ -33,7 +33,7 @@ struct ResultConnectorError : std::runtime_error {
 
 
 /**
- * Abstract class that represent a connection to a value produced by a
+ * Abstract class that represents a connection to a value produced by a
  * ProcessingStage. And we have polymorphism on ResultConnector, which is
  * a template.
  */
@@ -54,8 +54,8 @@ public:
 
 /**
  * Represent a connection to a value produced by another ProcessingStage.
- * It serves to purpose: the first retrieve the result in a easy way, other is
- * to save the produced value on disk for retrieving the next run of the program.
+ * It serves to purposes: the first is to retrieve results in a easy way, the other is
+ * to save produced value on disk for retrieving during the next run.
  */
 template<typename Type> class ResultConnector : public Connector<Type> {
 
@@ -77,8 +77,8 @@ public:
 	}
 
 	/**
-	 * If the value has not produced maybe it's on disk. This try to fetch it
-	 * and if it's not being found then signal an error (@see ResultConnectorError).
+	 * If the value is still not ready, it is on disk. This tries to fetch it
+	 * and it signals an error if not able to find it (@see ResultConectorError).
 	 */
 	Type fetchValue() override {
 
@@ -96,9 +96,8 @@ public:
 	}
 
 	/**
-	 * This serves to signal that the value even not ready right now, it will be
-	 * produced by a previous stage and for the moment of execution everything will
-	 * be ok.
+	 * This serves to signal that even if the value is not yet ready, it will be
+	 * produced by a previous stage at the moment of execution.
 	 */
 	void setFutureAvailable() {
 		futureAvailable = true;
@@ -150,7 +149,7 @@ private:
 
 /**
  * This is a specialization of Connector that is used to store inputs that have
- * to be specified by the user throgh the command line.
+ * to be specified by the user through the command line.
  */
 template<typename Type> class InputConnector : public Connector<Type> {
 

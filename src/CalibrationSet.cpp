@@ -132,12 +132,12 @@ std::ostream& operator<<(std::ostream& os, const CalibrationSet& obj) {
 
 /**
  * This class serves to describe a set of files on disk.
- * The form can be like this:
+ * The format can be like this:
  *
  * 	path-tosome-dir/any-file-with<ID>.ext
  *
- * Provides methods to iterate through the content of a directory and to retrieve
- * id from a given file respecting the form.
+ * It provides methods to iterate through the content of a directory and to retrieve
+ * id from a given file respecting the format.
  * It uses the boost::filesystem::path class.
  */
 class FormattedPath {
@@ -159,7 +159,7 @@ public:
 	}
 
 	/**
-	 * Check the consistency of the structure. Here better than within the
+	 * Check the consistency of the structure. Better here than within the
 	 * constructor.
 	 */
 	bool checkSanity() {
@@ -169,7 +169,7 @@ public:
 
 	/**
 	 * Return the iterator used to inspect the directory hosting the general
-	 * file form. We use boost::filesystem::directory_iterator class
+	 * file format. We use boost::filesystem::directory_iterator class
 	 */
 	boost::filesystem::directory_iterator getIterator() {
 		return boost::filesystem::directory_iterator(wholePath.parent_path());

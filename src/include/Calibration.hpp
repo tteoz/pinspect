@@ -31,7 +31,7 @@ namespace pinspect {
 
 /** Pattern representation type */
 typedef std::vector<cv::Point3f> Pattern;
-/** List of Pattern */
+/** List of Patterns */
 typedef std::vector<Pattern> PatternList;
 
 /** same as @see Pattern but for pattern found in image (2D) */
@@ -39,12 +39,12 @@ typedef std::vector<cv::Point2f> ImagePattern;
 /** list of */
 typedef std::vector<ImagePattern> ImagePatternList;
 
-/** It serves to memorize missed pattern in some image during searches */
+/** It serves to memorize missed patterns in image during search */
 typedef std::vector<bool> BoolVector;
 
 
 /**
- * To signal errors while reading content on disk.
+ * Signal errors while reading content on disk.
  */
 struct ReadError : std::runtime_error {
 	ReadError(std::string s) : std::runtime_error(s) {}
@@ -64,7 +64,7 @@ struct FoundPatterns {
 };
 
 /**
- * Represents a camera model.
+ * Represent a camera model.
  */
 struct CameraParameters {
   cv::Mat cameraMatrix;
@@ -104,7 +104,7 @@ struct CameraParameters {
 };
 
 /**
- * Represents a stereo camera model.
+ * Represent a stereo camera model.
  */
 struct StereoParameters {
   cv::Mat R;
@@ -143,7 +143,7 @@ struct StereoParameters {
 };
 
 /**
- * Parameter used to rectify an image.
+ * Parameters used to rectify an image.
  */
 struct RectificationParameters {
   cv::Mat R1;
@@ -186,7 +186,7 @@ struct RectificationParameters {
 
 
 /**
- * Pipeline stage to find calibration pattern in all dataset images.
+ * Pipeline stage for finding calibration patterns in all dataset images.
  * It wraps cv::findCirclesGrid.
  */
 class FindGridPattern : public ProcessingStage<FoundPatterns, FilenameList> {
@@ -210,7 +210,7 @@ private:
 
 
 /**
- * Pipeline stage to calibrate a single camera.
+ * Pipeline stage for calibrating a single camera.
  * It uses cv::calibrateCamera.
  */
 class SingleCalibration : public ProcessingStage<CameraParameters, FoundPatterns> {
@@ -232,7 +232,7 @@ private:
 
 
 /**
- * Pipeline stage to calibrate a stereo rig.
+ * Pipeline stage for calibrating a stereo rig.
  * Uses cv::stereoCalibrate.
  */
 class StereoCalibration : public ProcessingStage<StereoParameters,
@@ -251,7 +251,7 @@ private:
 
 
 /**
- * Stage to compute rectification maps.
+ * Stage for computing rectification maps.
  * Uses cv::stereoRectify.
  */
 class RectifyCalibration : public ProcessingStage<RectificationParameters,

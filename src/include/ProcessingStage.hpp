@@ -35,7 +35,7 @@ namespace pinspect {
 
 
 /**
- * Abstract class that generalize @see ProcessingStage which is a template.
+ * Abstract class that generalizes @see ProcessingStage, which is a template.
  */
 class ProcessingInterface {
 
@@ -57,7 +57,7 @@ protected:
 
 	/**
 	 * Store the name of the directory to let all stages serialize and recover
-	 * their input and outputs from disk.
+	 * their inputs and outputs from disk.
 	 */
 	static std::string outputDirectory;
 
@@ -73,15 +73,15 @@ protected:
  * It is parameterized in input parameter through variadic template
  * parameters @see ArgT, and output with @see RetT.
  *
- * This permit a very easy way to compose a pipeline out of single
+ * This permits a very easy way to compose a pipeline out of single
  * processing stages, all specializing this class. And gives type safety of the
  * input/output objects.
  *
  * Behavior:
  * 		When 'this' stage has to be performed @see doProcess, an initial operation
  * 		of retrieving	is done	through the use of @see Connector objects.
- * 		That can assure that all previous stages of the pipeline were executed.
- * 		After, a call to the private @see process function let the proper happen.
+ * 		This can assure that all previous stages of the pipeline were executed.
+ * 		After, a call to the private @see process function let the proper computation to happen.
  * 		And finally all results from @see process function are stored.
  */
 template<typename RetT, typename... ArgT> class ProcessingStage : public ProcessingInterface {
@@ -100,8 +100,8 @@ template<typename RetT, typename... ArgT> class ProcessingStage : public Process
 	/**
 	 * Callable object to make possible calling the private
 	 * function @see process, which is specialized for every overridden class.
-	 * It's to be initialized passing a pointer to an instance of this class.
-	 * It's used in @see doProcess.
+	 * It has to be initialized passing a pointer to an instance of this class.
+	 * It is used in @see doProcess.
 	 */
 	struct ProcessOnThis {
 		ProcessOnThis(ProcessingStage *ptr) : instancePtr(ptr) {}
@@ -128,7 +128,7 @@ public:
 
 
 	/**
-	 * Return the actual name for this stage.
+	 * Return the name of this stage.
 	 */
 	std::string name() override {
 		return stageName;
@@ -171,7 +171,7 @@ public:
 	}
 
 	/**
-	 * Run the check on all inputs Connector.
+	 * Run the check on all inputs of this Connector.
 	 */
 	bool checkInputs() override {
 

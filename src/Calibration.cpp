@@ -64,7 +64,7 @@ static Pattern createPattern(Parameters params) {
 
 
 /**
- * Access the parameters file and returns an object @see SimpleBlobDetector::Params,
+ * Access the parameters file and return an object @see SimpleBlobDetector::Params,
  * used to configure @see SimpleBlobDetector algorithm.
  */
 static cv::Ptr<cv::FeatureDetector> getBlobDetector(Parameters params) {
@@ -153,7 +153,7 @@ CameraParameters SingleCalibration::process(FoundPatterns input) {
 
 /**
  * This function is used for generic filtering. @param input is the vector to
- * filter, @param indices is a vector of boolean.
+ * filter, @param indices is a vector of booleans.
  * If indices[i] == true then the input[i] is kept, otherwise dropped.
  *
  * Used by @see StereoCalibration::process.

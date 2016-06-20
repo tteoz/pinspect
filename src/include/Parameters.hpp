@@ -38,7 +38,7 @@ struct BadFileAccess : std::runtime_error {
 
 /**
  * Thrown if a bad parameter access is made. Like a parameter name that's not
- * define.
+ * defined.
  */
 struct ParameterNameError : std::logic_error {
 	ParameterNameError(std::string s) : std::logic_error(s) {}
@@ -61,8 +61,8 @@ public:
 	Parameters() {}
 
 	/**
-	 * This accept @param fileName that contains each param (name, value) pair.
-	 * Since the underlying code is from opencv this works for .xml and .yaml.
+	 * This accepts @param fileName that contains each param (name, value) pair.
+	 * Since the underlying code is from opencv this works with .xml and .yaml.
 	 */
 	Parameters(std::string fileName) : parametersFilename(fileName) {
 
@@ -75,7 +75,7 @@ public:
 
 	/**
 	 * Add a parameter @param name and the corresponding default @param defaultValue.
-	 * We check on disk to see if there is the parameter to bound with, otherwise
+	 * We check on disk to see if there is the parameter to bound to, otherwise
 	 * we store the default provided value.
 	 */
 	template<typename T> void add(std::string name, T defaultValue) {
